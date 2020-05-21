@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试页面</title>
+	
+	<style src></style>
+</head>
+<body>
+    <script>
+        function sendForm(){
+        var form = document.getElementById("form1");
+        var formData = new FormData(form);
+        formData.append('grade','3')
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','test.php',true);
+        xhr.onload = function(e){
+            if(this.status == 200){
+                document.getElementById("result").innerHTML = this.response;
+            }
+        };
+        xhr.send(formData);
+        }
+    </script>
+    <form id="form1">
+      用户名：<input type="text" name="name" /><br />
+      密码：<input type="password" name="pass" /><br />
+      <input type="button" value="发送" onclick="sendForm()" />
+    </form>
+    <output id="result"></output>
+	
+</body>
+</html>

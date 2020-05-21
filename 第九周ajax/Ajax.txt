@@ -1,0 +1,140 @@
+PHP基础语法
+php代码全部放入  <?php     ?>
+变量申明用$,变量以字符数字下划线组成且不能以数字开头，变量名对大小写敏感
+php中字符串拼接用点（.）
+单引号对于其中的变量当普通的字符串处理
+双引号对于其中的变量会把变量解析成变量值
+echo ""  输出语法
+print_r()   var_dump() 打印数组
+
+
+使用Ajax发送请求需要如下几步：
+
+1、创建XMLHttpRequest对象
+var xhr = new XMLHttpRequest();
+2、准备发送
+xhr.open('get','./01check.php?username='+uname+'&password='+pw,true);
+3、执行发送动作
+xhr.send(null);
+4、指定回调函数
+xhr.onreadystatechange = function(){
+   if(xhr.readyState == 4){
+       if(xhr.status == 200){
+            var data = xhr.responseText;
+            var info = document.getElementById('info');
+               if(data == '1'){
+                   info.innerHTML = '登录成功';
+                 }else if(data == '2'){
+                  info.innerHTML = '用户名或者密码错误';
+                        }
+                    }
+                }
+            }
+
+
+ // 1、创建XMLHttpRequest对象
+            var xhr = null;
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();//标准
+            }else{
+                xhr = new ActiveXObject("Microsoft");//IE6
+            }
+            // 2、准备发送
+            /*
+            参数一：请求方式（get获取数据；post提交数据）
+            参数二：请求地址
+            参数三：同步或者异步标志位，默认是true表示异步，false表示同步
+            
+            post请求参数通过send传递，不需要通过encodeURI()转码
+            必须设置请求头信息
+            */
+            var param = 'username='+uname+'&password='+pw;
+            xhr.open('post','04post.php',false);
+            // 3、执行发送动作
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.send(param);//post请求参数在这里传递，并且不需要转码
+            // 4、指定回调函数
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        alert(xhr.responseText);
+                    }
+                }
+            }
+            
+
+
+
+get
+get请求参数在url中传递
+需要注意编码问题
+post
+post请求参数在请求体中传递
+需要设置请求头信息
+
+原生Ajax详解-回调函数
+onreadysatechange
+xhr.readyState
+        0  xhr对象初始化
+	1  执行发送动作
+	2  服务器端数据已经完全返回
+	3  数据正在解析
+	4  数据解析完成，可以使用了
+xhr.status
+200 数据相应正常
+404 没有找到资源
+500 服务器端错误
+
+
+跨域解决方案
+jsonp
+document.domain+iframe
+location.hash + iframe
+window.name + iframe
+window.postMessage 
+flash等第三方插件
+
+
+ readyState:
+ 2 浏览器已经收到了服务器响应的数据
+ 3 正在解析数据
+ 4 数据已经解析完成，可以使用了
+
+
+ xml数据格式
+
+    元数据：描述数据的数据
+
+    这种数据格式的弊端：
+    1、元数据占用的数据量比较大，不利于大量数据的网络传输
+    2、解析不太方便
+
+
+json数据和普通的js对象的区别：
+    1、json数据没有变量
+    2、json形式的数据结尾没有分号
+    3、json数据中的键必须用双引号包住
+
+
+单线程+事件队列
+
+    事件队列中的任务执行的条件：
+    1、主线程已经空闲
+    2、任务满足触发条件
+        1、定时函数（延时时间已经达到）
+        2、事件函数（特定事件被触发）
+        3、ajax的回调函数（服务器端有数据相应）
+
+ form默认请求方式就是get请求，get请求会把表单数据作为url的参数
+
+
+  script标签里面的async属性表示异步加载资源，默认情况下是同步加载
+
+        这种方式存在的两个主要的问题：
+        1、必须保证加载的顺序
+        2、不方便通过程序传递参数
+
+
+
+
+
